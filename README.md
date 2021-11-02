@@ -10,10 +10,13 @@ Import and clean csv from NewForma log:
 
 ## Develop code for locating missing submittals:
 rej = ['Revise and Resubmit','Approved as Noted/Resubmit','Rejected']
+
 apv = ['Approved as Noted','Approved']
 
 df2.loc[(df2['Final Response'].isin(rej)) & (df2[['Submittal_Number']] != df2[['Submittal_Number']].shift(-1)).any(axis=1),'Missing_Resubmittal']='Yes'
+
 df2.loc[(df2['Final Response'].isin(rej)) & (df2[['Submittal_Number']] == df2[['Submittal_Number']].shift(-1)).any(axis=1),'Missing_Resubmittal']='No'
+
 df2.loc[(df2['Final Response'].isin(apv)),'Missing_Resubmittal']='No'
 
 
